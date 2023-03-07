@@ -51,5 +51,13 @@ pipeline {
            }     
         }
       
+      stage ('Dynamic Analysis') {
+            steps {
+           sshagent(['server-application']) {
+               sh 'ssh -o  StrictHostKeyChecking=no ubuntu@43.204.28.189 "sudo ./zap.sh -cmd -quickurl http://13.126.55.0:8080/WebGoat -quickprogress -quickout ~/Aut.xml || true" '
+           }      
+           }       
+    }
+      
    }
 }  
