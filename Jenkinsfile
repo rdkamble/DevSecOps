@@ -44,7 +44,7 @@ pipeline {
       stage ('Deploy to Server Application') {
             steps {
            sshagent(['server-application']) {
-              sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/vulnweb/target/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@13.126.55.0:/WebGoat'
+              sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/vulnweb/target/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@13.126.55.0:~/WebGoat'
              sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.126.55.0 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8080 &"'
     
            }
