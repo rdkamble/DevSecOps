@@ -54,7 +54,7 @@ pipeline {
             steps {
                 sshagent(['application-server']) {
                     sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/vulnweb/target/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@3.110.49.177:~/WebGoat'
-                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@3.110.49.177 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8080 &"'
+                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@3.110.49.177 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8085 &"'
                 }
             }     
        }
