@@ -64,7 +64,7 @@ pipeline {
             steps {
           	    sshagent(['application-server']) {
                     sh 'ssh -o  StrictHostKeyChecking=no ubuntu@43.205.207.201 "sudo docker run --rm -v /home/ubuntu:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://3.110.49.177:8085/WebGoat -x zap_report || true" '
-			        sh 'ssh -o  StrictHostKeyChecking=no ubuntu@43.205.207.201 "sudo ./zap_report.sh"'
+			        //sh 'ssh -o  StrictHostKeyChecking=no ubuntu@43.205.207.201 "sudo ./zap_report.sh"'
                 }      
             }       
         }
