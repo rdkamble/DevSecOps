@@ -30,25 +30,15 @@ pipeline {
 	    steps {
             withSonarQubeEnv('Sonar-scanner') {
 	            sh 'mvn sonar:sonar'
-                //'mvn clean package sonar:sonar'
 	        }
 	    }
      }
       
-      //stage ('Deploy to Server Application') {
-            //steps {
-           //sshagent(['server-application']) {
-              //sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/vulnweb/target/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@13.126.55.0:~/WebGoat'
-             //sh 'ssh -o  StrictHostKeyChecking=no ubuntu@13.126.55.0 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8080 &"'
-    
-           //}
-          // }     
-        //}
       stage ('Deploy to Server Application') {
             steps {
                 sshagent(['application-server']) {
-                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/vulnweb/target/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@3.110.49.177:~'
-                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@3.110.49.177 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8085 &"'
+                    sh 'scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/vulnweb/target/webgoat-server-v8.2.0-SNAPSHOT.jar ubuntu@15.207.82.159:~'
+                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@15.207.82.159 "nohup java -jar webgoat-server-v8.2.0-SNAPSHOT.jar --server.address=0.0.0.0 --server.port=8085 &"'
                 }
             }     
        }
@@ -57,8 +47,7 @@ pipeline {
        stage ('Dynamic analysis') {
             steps {
           	    sshagent(['application-server']) {
-                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@43.205.207.201 "sudo docker run --rm -v /home/ubuntu:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://3.110.49.177:8085/WebGoat -x zap_report || true" '
-			        //sh 'ssh -o  StrictHostKeyChecking=no ubuntu@43.205.207.201 "sudo ./zap_report.sh"'
+                    sh 'ssh -o  StrictHostKeyChecking=no ubuntu@65.1.20.161 "sudo docker run --rm -v /home/ubuntu:/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://15.207.82.159:8085/WebGoat -x zap_report || true" '
                 }      
             }       
         }
