@@ -26,12 +26,6 @@ pipeline {
             }
        }
   
-     stage ('Host vulnerability assessment') {
-        steps {
-             sh 'echo "In-Progress"'
-        }
-     }
-    
      stage ('Static Application Security Testing') {
 	    steps {
             withSonarQubeEnv('Sonar-scanner') {
